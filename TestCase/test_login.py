@@ -25,26 +25,47 @@ class Login(unittest.TestCase):
 
     def test_login01(self):
         u"""用户名为空，密码为空----登录失败"""
+        self.goto_login()
+
         a = self.login('', '')
         self.assertFalse(a, False)
 
     def test_login02(self):
         u"""13071825896，密码为空----登录失败"""
+        self.goto_login()
+
         a = self.login('13071825896', '')
         self.assertFalse(a, False)
 
     def test_login03(self):
         u"""用户名为空，密码为3279----登录失败"""
+        self.goto_login()
+
         a = self.login('', '3279')
         self.assertFalse(a, False)
 
     def test_login04(self):
         u"""用户名为13071825896，密码为3279----登录成功"""
+        self.goto_login()
+
         a = self.login('13071825896', '3279')
         print(a)
         self.assertTrue(a, True)
 
-    def login(self, username, verificationcode):
+    def test_wxlogin(self):
+        u"""微信登录"""
+
+        self.goto_login()
+        self.wx_login()
+
+    def test_userAgree(self):
+        u"""用户协议----跳转成功"""
+        self.goto_login()
+        a = self.user_agree()
+        print(a)
+        self.assertTrue(a, True)
+
+    def goto_login(self):
         my = self.driver.find_element_by_name('我的')
         self.assertIsNotNone(my)
         my.click()
@@ -53,6 +74,8 @@ class Login(unittest.TestCase):
         self.assertIsNotNone(lgbs)
         lgbs.click()
         sleep(2)
+
+    def login(self, username, verificationcode):
 
         try:
 
@@ -76,10 +99,32 @@ class Login(unittest.TestCase):
                 return True
 
         except:
-            # self.driver.find_element_by_id('tv.yunxi.app:id/ll_wechat_login').click()
             print(u'--密码超限，请稍后重试--')
             sleep(2)
         sleep(2)
+
+    def wx_login(self):
+        wxBnt = self.driver.find_element_by_id('tv.yunxi.app:id/ll_wechat_login')
+        self.assertIsNotNone(wxBnt)
+        wxBnt.click()
+        self.driver.find_element_by_name(u'确认登录').click()
+        sleep(4)
+
+    def user_agree(self):
+        sleep(4)
+        agree = self.driver.find_element_by_id('tv.yunxi.app:id/tv_agree')
+        self.assertIsNotNone(agree)
+        agree.click()
+        try:
+            title = self.driver.find_element_by_id('tv.yunxi.app:id/tv_title')
+            self.assertIsNotNone(title)
+            agree = self.assertEqual(title.text, u"用户协议")
+            if agree == None:
+                return True
+
+        except:
+            print('failed')
+        self.driver.keyevent(4)
 
 
 if __name__ == '__main__':

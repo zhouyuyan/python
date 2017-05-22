@@ -49,9 +49,9 @@ class Home(unittest.TestCase):
 
         lg.login(self, '13071825896', '3279')
         self.goto_faxian()
-        self.faxian()
+        self.search()
         self.wx_share()
-        self.wx_cricle()
+        # self.wx_cricle()
 
     def test_f(self):
         """测试登录-发现-评论"""
@@ -71,7 +71,7 @@ class Home(unittest.TestCase):
         ser.click()
         print(u'--点击搜索按钮--')
         sleep(2)
-        self.driver.find_element_by_id('tv.yunxi.app:id/ed_search').send_keys(u'测试中断异常')
+        self.driver.find_element_by_id('tv.yunxi.app:id/ed_search').send_keys(u'啊啊')
         print(u'--输入搜索内容--')
         self.driver.keyevent(66)
         try:
@@ -165,13 +165,13 @@ class Home(unittest.TestCase):
 
     def wx_share(self):
         # 微信分享
-        play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
-        share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
-        if self.assertIsNotNone(share):
-            play.click()
-            share.click()
+        # play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
+        # share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
+        if self.assertIsNotNone(self.share):
+            self.play.click()
+            self.share.click()
         else:
-            share.click()
+            self.share.click()
 
         sleep(2)
         self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='0']").click()
@@ -185,14 +185,15 @@ class Home(unittest.TestCase):
 
     def wx_cricle(self):
         # 朋友圈分享
-        play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
-        share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
-        if self.assertIsNotNone(share):
-            play.click()
-            share.click()
+        self.play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
+        self.share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
+        if self.assertIsNotNone(self.share):
+            print(self.assertIsNotNone(self.share))
+            self.play.click()
+            self.share.click()
         else:
-            share.click()
+            self.share.click()
         sleep(2)
         self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='1']").click()
-        sleep(10)
-        self.driver.find_element_by_name(u'发送').click()
+        sleep(2)
+        self.driver.find_element_by_xpath("//android.widget.TextView[@text='发送']").click()
