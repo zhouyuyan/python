@@ -3,9 +3,7 @@
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
 from time import sleep
-
 from Common import yunxiCommon as yc
-
 from appium import webdriver as appdriver
 
 

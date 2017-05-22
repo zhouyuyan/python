@@ -3,10 +3,8 @@
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
 from time import sleep
-
 from Common import yunxiCommon as yc
 from TestCase.test_login import Login as lg
-
 from appium import webdriver as appdriver
 
 

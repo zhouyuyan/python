@@ -11,7 +11,6 @@ import smtplib
 
 
 # 遍历测试用例
-# 遍历测试用例
 def creatsuite():
     testunit = unittest.TestSuite()
     test_dir = 'D:\\workspace\\yunxiAndroid\\TestCase'
