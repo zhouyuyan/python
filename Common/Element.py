@@ -1,4 +1,4 @@
-from driver import AppiumTest
+from appium import webdriver
 
 
 class Element:
@@ -6,9 +6,10 @@ class Element:
     封装Appium中关于元素对象的方法
     """
 
-    def __init__(self):
-        at = AppiumTest()
-        self.driver = at.get_driver()
+    def __init__(self, driver: webdriver.Remote):
+        self.driver = driver
+        self.width = self.driver.get_window_size()['width']
+        self.height = self.driver.get_window_size()['height']
 
     def get_id(self, id):
         element = self.driver.find_element_by_id(id)
