@@ -6,6 +6,7 @@ from time import sleep
 from Common import yunxiCommon as yc
 from TestCase.test_login import Login as lg
 from appium import webdriver as appdriver
+import pytest
 
 
 class My(unittest.TestCase):
