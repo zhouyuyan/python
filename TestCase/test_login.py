@@ -10,7 +10,7 @@ from appium import webdriver as appdriver
 class Login(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps(self))
+        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps())
 
         self.driver.implicitly_wait(5)
 

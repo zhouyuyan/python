@@ -11,7 +11,7 @@ from TestCase.test_login import Login as lg
 class Attention(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps(self))
+        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps())
 
         self.driver.implicitly_wait(5)
 

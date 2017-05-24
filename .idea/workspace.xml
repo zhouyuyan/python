@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce1f87b4-9ee7-43fb-abb1-e6a3caf898bb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/action.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/exception/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/exception/exceptions.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/monkeyTest/test.cmd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/monkeyTest/test.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/yunxiCommon.py" afterPath="$PROJECT_DIR$/Common/yunxiCommon.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestCase/test_home.py" afterPath="$PROJECT_DIR$/TestCase/test_home.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestCase/test_attention.py" afterPath="$PROJECT_DIR$/TestCase/test_attention.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestCase/test_login.py" afterPath="$PROJECT_DIR$/TestCase/test_login.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestCase/test_my.py" afterPath="$PROJECT_DIR$/TestCase/test_my.py" />
     </list>
@@ -66,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_my.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_my.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestCase/test_my.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+            <state relative-caret-position="289">
+              <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -88,14 +81,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_attention.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_attention.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestCase/test_attention.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+            <state relative-caret-position="221">
+              <caret line="13" column="87" lean-forward="false" selection-start-line="13" selection-start-column="87" selection-end-line="13" selection-end-column="87" />
               <folding>
                 <element signature="e#88#103#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="yunxiCommon.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/yunxiCommon.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,8 +116,8 @@
       <file leaf-file-name="test_login.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestCase/test_login.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-303">
-              <caret line="67" column="55" lean-forward="true" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
+            <state relative-caret-position="306">
+              <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
               <folding>
                 <element signature="e#88#103#0" expanded="true" />
               </folding>
@@ -165,7 +168,6 @@
         <option value="$PROJECT_DIR$/Appium/APP1.3/TestSuite/TestSuite.py" />
         <option value="$PROJECT_DIR$/Appium/TestCase_login_null.py" />
         <option value="$PROJECT_DIR$/TestSuite/TestSuite.py" />
-        <option value="$PROJECT_DIR$/TestCase/test_attention.py" />
         <option value="$PROJECT_DIR$/monkeyTest/test.cmd" />
         <option value="$PROJECT_DIR$/monkeyTest/test.sh" />
         <option value="$PROJECT_DIR$/exception/exceptions.py" />
@@ -174,6 +176,7 @@
         <option value="$PROJECT_DIR$/Common/yunxiCommon.py" />
         <option value="$PROJECT_DIR$/TestCase/test_home.py" />
         <option value="$PROJECT_DIR$/TestCase/test_login.py" />
+        <option value="$PROJECT_DIR$/TestCase/test_attention.py" />
         <option value="$PROJECT_DIR$/TestCase/test_my.py" />
       </list>
     </option>
@@ -579,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495511786556</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="优化分享功能">
+      <created>1495598095975</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1495598095975</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -658,6 +668,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="优化分享功能" />
     <option name="LAST_COMMIT_MESSAGE" value="优化分享功能" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -843,16 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/yunxiCommon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="50" column="25" lean-forward="true" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-          <folding>
-            <element signature="e#87#96#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/Element.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -895,6 +896,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Common/yunxiCommon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestCase/test_login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="e#88#103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestCase/test_attention.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="87" lean-forward="false" selection-start-line="13" selection-start-column="87" selection-end-line="13" selection-end-column="87" />
+          <folding>
+            <element signature="e#88#103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TestCase/test_home.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1581">
@@ -905,31 +934,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestCase/test_login.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-303">
-          <caret line="67" column="55" lean-forward="true" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
-          <folding>
-            <element signature="e#88#103#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TestCase/test_my.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        <state relative-caret-position="289">
+          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestCase/test_attention.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
-          <folding>
-            <element signature="e#88#103#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
