@@ -24,18 +24,18 @@ class My(unittest.TestCase):
 
     def test_e(self):
         """测试登录-设置（清除缓存）"""
-        lg.login(self,'13071825896', '3279')
+        lg.login(self, '13071825896', '3279')
         self.setting()
 
     def setting(self):
-        self.driver.find_element_by_id('tv.yunxi.app:id/rl_setting').click()
-        print(u'--点击设置按钮--')
-        sleep(2)
-        self.driver.find_element_by_id('tv.yunxi.app:id/rl_wipe_cache').click()
-        print(u'--点击清空缓存按钮--')
-        sleep(2)
 
         try:
+            self.driver.find_element_by_id('tv.yunxi.app:id/rl_setting').click()
+            print(u'--点击设置按钮--')
+            sleep(2)
+            self.driver.find_element_by_id('tv.yunxi.app:id/rl_wipe_cache').click()
+            print(u'--点击清空缓存按钮--')
+            sleep(2)
             self.driver.find_element_by_id('tv.yunxi.app:id/dialog_ok').click()
             sleep(2)
             print(u'--点击清空缓存dialog--')

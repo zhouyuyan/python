@@ -4,7 +4,8 @@
 import unittest
 from random import choice
 from time import sleep
-from Common import yunxiCommon as yc
+from Common.yunxiCommon import *
+# from Common import yunxiCommon as yc
 from TestCase.test_login import Login as lg
 from appium import webdriver as appdriver
 
@@ -12,7 +13,7 @@ from appium import webdriver as appdriver
 class Home(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps(self))
+        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps())
 
         self.driver.implicitly_wait(5)
 
@@ -53,12 +54,20 @@ class Home(unittest.TestCase):
         self.wx_share()
         # self.wx_cricle()
 
+    def test_videoSetting(self):
+        """测试登录-发现页面-播放界面设置"""
+
+        self.goto_faxian()
+        self.search()
+        # self.faxian()
+        self.video_setting()
+
     def test_f(self):
         """测试登录-发现-评论"""
-        lg.login(self,'13071825896', '3279')
+        lg.login(self, '13071825896', '3279')
         self.faxian()
         self.pinglun()
-    #
+
     # def test_g(self):
     #     """测试发现-播放页面设置"""
     #     self.faxian()
@@ -71,14 +80,15 @@ class Home(unittest.TestCase):
         ser.click()
         print(u'--点击搜索按钮--')
         sleep(2)
-        self.driver.find_element_by_id('tv.yunxi.app:id/ed_search').send_keys(u'啊啊')
+        self.driver.find_element_by_id('tv.yunxi.app:id/ed_search').send_keys(u'啊啊啊啊啊')
         print(u'--输入搜索内容--')
         self.driver.keyevent(66)
+        sleep(5)
         try:
             self.driver.find_element_by_id('tv.yunxi.app:id/tv_search_title')
             print(u'搜索成功')
             self.driver.find_element_by_id('tv.yunxi.app:id/img_search').click()
-            sleep(3)
+
 
         except:
             print(u'搜索失败')
@@ -163,37 +173,106 @@ class Home(unittest.TestCase):
         except:
             print(u'--发现--')
 
+    def video_setting(self):
+        try:
+            self.fusc = get_id(self, 'tv.yunxi.app:id/img_full_Screen')
+            giftLl = get_id(self, 'tv.yunxi.app:id/giftLl')
+            self.result01 = self.assertIsNotNone(self.fusc)
+            print(self.result01)
+            if (self.result01 == None):
+                giftLl.click()
+                self.fusc.click()
+                print(u"点击屏幕")
+
+            else:
+                print(u"pass")
+                self.fusc.click()
+            print("横屏播放成功")
+        except:
+            print("横屏播放")
+        sleep(5)
+        bottom_control = get_id(self, 'tv.yunxi.app:id/rl_bottom_control')
+        danm = get_id(self, 'tv.yunxi.app:id/img_danmaku_control')
+        result02 = self.assertIsNotNone(danm)
+        try:
+            if (result02 == None):
+                bottom_control.click()
+                danm.click()
+                print(u"点击屏幕")
+
+            else:
+                print(u"准备开启弹幕")
+                danm.click()
+            print("弹幕开启成功")
+
+        except:
+            print('failed_opentanmu')
+        sleep(5)
+
+        try:
+            if (result02 == None):
+                bottom_control.click()
+                danm.click()
+
+                print(u"点击屏幕")
+            else:
+                print(u"准备关闭tanmu")
+                danm.click()
+            print("弹幕关闭成功")
+        except Exception as e:
+            print('failed_closetanmu')
+        sleep(5)
+
+        # 关闭全屏
+        try:
+            if (self.result01 == None):
+                bottom_control.click()
+                self.fusc.click()
+                print(u"关闭全屏")
+            else:
+                self.fusc.click()
+                print(u"关闭全屏")
+            print("全屏关闭成功")
+        except:
+            print("全屏关闭失败")
+
+        self.driver.keyevent(4)  # 测试
+
     def wx_share(self):
         # 微信分享
-        # play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
-        # share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
-        if self.assertIsNotNone(self.share):
-            self.play.click()
-            self.share.click()
-        else:
-            self.share.click()
+        try:
+            if self.assertIsNotNone(self.share):
+                self.play.click()
+                self.share.click()
+            else:
+                self.share.click()
 
-        sleep(2)
-        self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='0']").click()
-        sleep(10)
-        self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='1']").click()
-        sleep(2)
-        self.driver.find_element_by_name(u'分享').click()
-        sleep(2)
-        self.driver.find_element_by_name(u'返回云犀直播').click()
-        sleep(3)
+            sleep(2)
+            self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='0']").click()
+            sleep(10)
+            self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='1']").click()
+            sleep(2)
+            self.driver.find_element_by_name(u'分享').click()
+            sleep(2)
+            self.driver.find_element_by_name(u'返回云犀直播').click()
+            sleep(3)
+        except:
+            print(u"分享到好友失败")
 
     def wx_cricle(self):
         # 朋友圈分享
-        self.play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
-        self.share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
-        if self.assertIsNotNone(self.share):
-            print(self.assertIsNotNone(self.share))
-            self.play.click()
-            self.share.click()
-        else:
-            self.share.click()
-        sleep(2)
-        self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='1']").click()
-        sleep(2)
-        self.driver.find_element_by_xpath("//android.widget.TextView[@text='发送']").click()
+        try:
+            self.play = self.driver.find_element_by_id('tv.yunxi.app:id/ll_player_control')
+            self.share = self.driver.find_element_by_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
+            if self.assertIsNotNone(self.share):
+                print(self.assertIsNotNone(self.share))
+                self.play.click()
+                self.share.click()
+            else:
+                self.share.click()
+            sleep(2)
+            self.driver.find_element_by_xpath("//android.widget.LinearLayout[@index='1']").click()
+            sleep(2)
+            self.driver.find_element_by_xpath("//android.widget.TextView[@text='发送']").click()
+        except:
+            print(u"分享到胖友圈失败")
