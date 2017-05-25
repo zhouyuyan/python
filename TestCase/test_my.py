@@ -3,7 +3,7 @@
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
 from time import sleep
-from Common import yunxiCommon as yc
+from Common.yunxiCommon import *
 from TestCase.test_login import Login as lg
 from appium import webdriver as appdriver
 import pytest
@@ -12,7 +12,7 @@ import pytest
 class My(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', yc.desired_caps())
+        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
 
         self.driver.implicitly_wait(5)
 

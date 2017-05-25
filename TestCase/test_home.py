@@ -5,7 +5,6 @@ import unittest
 from random import choice
 from time import sleep
 from Common.yunxiCommon import *
-# from Common import yunxiCommon as yc
 from TestCase.test_login import Login as lg
 from appium import webdriver as appdriver
 
@@ -13,7 +12,7 @@ from appium import webdriver as appdriver
 class Home(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps())
+        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
 
         self.driver.implicitly_wait(5)
 

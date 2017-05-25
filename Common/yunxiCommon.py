@@ -8,7 +8,7 @@ import datetime
 import pexpect, sys, os.path, subprocess
 
 
-def desired_caps():
+def desired_caps(self):
     caps = {
 
         'platformName': 'Android',
@@ -21,7 +21,7 @@ def desired_caps():
 
         'appActivity': 'tv.yunxi.app.module.common.MainActivity',
 
-        # 'app': "D:\DevelopTools\Android\sdk\platform-tools",
+        'app': 'D:\\workspace\\yunxiTestCase\\app\\app.apk',
 
         'automationName': 'Appium',
         'unicodeKeyboard': True,
