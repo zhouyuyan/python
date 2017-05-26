@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
-from time import sleep
 from Common.yunxiCommon import *
-from TestCase.test_login import Login as lg
+from Common.Element import *
 from appium import webdriver as appdriver
-import pytest
+from utils import L
+
+L.i('-------开始运行test_my-------')
 
 
 class My(unittest.TestCase):
@@ -15,6 +16,7 @@ class My(unittest.TestCase):
         self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
 
         self.driver.implicitly_wait(5)
+        writeLog(self)
 
         print("----------------setup-------------")
 
@@ -25,26 +27,31 @@ class My(unittest.TestCase):
 
     def test_e(self):
         """测试登录-设置（清除缓存）"""
-        lg.login(self, '13071825896', '3279')
+        goto_login(self)
+        login(self, '13071825896', '3279')
         self.setting()
 
     def setting(self):
 
         try:
-            self.driver.find_element_by_id('tv.yunxi.app:id/rl_setting').click()
-            print(u'--点击设置按钮--')
+            get_id(self, 'tv.yunxi.app:id/rl_setting').click()
+            L.i('--点击设置按钮--')
             sleep(2)
-            self.driver.find_element_by_id('tv.yunxi.app:id/rl_wipe_cache').click()
-            print(u'--点击清空缓存按钮--')
+            get_id(self, 'tv.yunxi.app:id/rl_wipe_cache').click()
+            L.i('--点击清空缓存按钮--')
             sleep(2)
-            self.driver.find_element_by_id('tv.yunxi.app:id/dialog_ok').click()
+            get_id(self, 'tv.yunxi.app:id/dialog_ok').click()
             sleep(2)
-            print(u'--点击清空缓存dialog--')
+            L.i('--点击清空缓存dialog--')
+            sleep(2)
+            get_id(self, 'tv.yunxi.app:id/ll_back').click()
+            sleep(2)
+            self.driver.keyevent(4)  # 硬件返回
         except:
-            print(u'--操作失败--')
-        sleep(2)
-        self.driver.find_element_by_id('tv.yunxi.app:id/ll_back').click()
+            L.w('--操作失败--')
+
         sleep(2)
 
-        self.driver.keyevent(4)  # 硬件返回
-        sleep(2)
+
+if __name__ == '__My__':
+    unittest.main()
