@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from exception.exceptions import *
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import TimeoutException
+from utils import L
 
 
 def singleton(class_):
@@ -59,17 +60,6 @@ class ElementActions:
         list_nums = list(nums)
         for num in list_nums:
             self._send_key_event('KEYCODE_NUM', num)
-
-    def swip_left(self, count=1):
-        """向左滑动,一般用于ViewPager
-
-        Args:
-            count: 滑动次数
-
-        """
-        for x in range(count):
-            self.sleep(1)
-            self.driver.swipe(self.width * 9 / 10, self.height / 2, self.width / 10, self.height / 2, 1500)
 
     def click(self, locator, count=1):
         """基础的点击事件
@@ -127,6 +117,28 @@ class ElementActions:
             self._find_element(locator).clear()
         self._find_element(locator).send_keys(value)
 
+    def swip_left(self, count=1):
+        """向左滑动,一般用于ViewPager
+
+        Args:
+            count: 滑动次数
+
+        """
+        for x in range(count):
+            self.sleep(1)
+            self.driver.swipe(self.width * 9 / 10, self.height / 2, self.width / 10, self.height / 2, 1500)
+
+    def swip_right(self, count=1):
+        """向右滑动,一般用于ViewPager
+
+        Args:
+            count: 滑动次数
+
+        """
+        for x in range(count):
+            time.sleep(1)
+            self.driver.swipe(self.width * 9 / 10, self.height / 10, self.width / 2, self.height / 2, 1500)
+
     def swip_down(self, count=1, method=None):
         """向下滑动,常用于下拉刷新
 
@@ -135,21 +147,47 @@ class ElementActions:
             method: 传入的方法 method(action) ,如果返回为True,则终止刷新
 
         Examples:
-            action.swip_down(count=100, method=lambda action: not action.is_key_text_displayed("暂无可配送的订单"))
+            swip_down(self, count=100, method=is_text_displayed(self, "没有更多了"))
             上面代码意思:当页面不展示"暂无可配送的订单"时停止刷新,即有单停止刷新
         """
         if count == 1:
             self.driver.swipe(self.width / 2, self.height * 2 / 5, self.width / 2, self.height * 4 / 5, 2000)
-            self.sleep(1)
+            time.sleep(1)
         else:
             for x in range(count):
                 self.driver.swipe(self.width / 2, self.height * 2 / 5, self.width / 2, self.height * 4 / 5, 2000)
-                self.sleep(1)
+                time.sleep(1)
                 try:
                     if method(self):
                         break
                 except:
                     pass
+
+    def swip_up(self, count=1, method=None):
+        """向上滑动,常用于上拉加载
+
+        Args:
+            count: 滑动次数
+            method: 传入的方法 method(action) ,如果返回为True,则终止加载
+
+        Examples:
+            swip_down(self, count=100, method=is_text_displayed(self, "没有更多了"))
+            上面代码意思:当页面不展示"暂无可配送的订单"时停止加载,即有单停止加载
+        """
+        if count == 1:
+            self.driver.swipe(self.width / 2, self.height * 4 / 5, self.width / 2, self.height * 2 / 5, 2000)
+            time.sleep(1)
+        else:
+            x = 0
+            for x in range(count):
+                self.driver.swipe(self.width / 2, self.height * 4 / 5, self.width / 2, self.height * 2 / 5, 2000)
+                time.sleep(1)
+                try:
+                    if method(self):
+                        break
+                except:
+                    pass
+            L.i('上拉加载的次数：' + str(x))
 
     def is_toast_show(self, message, wait=20):
         """Android检查是否有对应Toast显示,常用于断言
@@ -201,7 +239,7 @@ class ElementActions:
             else:
                 return False
 
-    def is_element_displayed(self, locator, is_retry=True, ):
+    def is_element_displayed(self, locator, is_retry=True):
         """检查控件是否显示
 
         Args:
@@ -323,3 +361,35 @@ class ElementActions:
             self.driver.press_keycode(8 + int(num))
         elif arg in event_list:
             self.driver.press_keycode(int(event_list[arg]))
+
+    """""封装查找元素及自动等待方法"""""
+
+    def get_id(self, id):
+        element = self.driver.find_element_by_id(id)
+        return element
+
+    def get_name(self, name):
+        element = self.driver.find_element_by_name(name)
+        return element
+
+    def get_xpath(self, xpath):
+        element = self.driver.find_element_by_xpath(xpath)
+        return element
+
+    def get_classes(self, classesname):
+        elements = self.driver.find_elements_by_class_name(classesname)
+        return elements
+
+    def get_ids(self, ids):
+        elements = self.driver.find_elements_by_id(ids)
+        return elements
+
+    def over(self):
+        element = self.driver.quit()
+        return element
+
+    def get_screen(self, path):
+        self.driver.get_screenshot_as_file(path)
+
+    def back(self):
+        self.driver.keyevent(4)

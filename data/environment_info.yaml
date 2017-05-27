@@ -5,7 +5,7 @@ app_package: tv.yunxi.app
 appium: 1.4.16
 devices:
 - !DeviceInfo
-  device_name: 127.0.0.1:62001
+  device_name: GSL0216A10001570
   platform_name: Android
-  platform_version: 4.4.2
+  platform_version: '7.0'
 html_report: D:\workspace\yunxiTestCase/report/html

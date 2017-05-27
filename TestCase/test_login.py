@@ -17,7 +17,28 @@ class Login(unittest.TestCase):
 
         self.driver.implicitly_wait(5)
         writeLog(self)
-
+        global action
+        action = ElementActions(driver=self.driver)
+        # 判断是否出现权限弹窗
+        time.sleep(3)
+        # try:
+        #
+        #     els = self.driver.find_elements_by_class_name('android.widget.Button')
+        #     for el in els:
+        #         time.sleep(2)
+        #         if el.text == u'允许':
+        #             self.driver.find_element_by_android_uiautomator('new UiSelector().text("允许")').click()
+        #             print('点击允许')
+        #         elif el.text == u'始终允许':
+        #             self.driver.find_element_by_android_uiautomator('new UiSelector().text("始终允许")').click()
+        #             print('点击始终允许')
+        #         elif el.text == u'确定':
+        #             self.driver.find_element_by_android_uiautomator('new UiSelector().text("确定")').click()
+        #             print('点击确定')
+        # except:
+        #     print('pass')
+        #
+        #     pass
         print("----------------setup-------------")
 
     def tearDown(self):

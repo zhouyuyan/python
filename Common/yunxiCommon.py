@@ -8,6 +8,9 @@ import datetime
 from time import sleep
 
 import pexpect, sys, os.path, subprocess
+from appium import webdriver
+
+from Common.action import ElementActions
 from utils.environment import Environment
 
 env = Environment().get_environment_info()
@@ -54,18 +57,38 @@ def writeLog(self):
 
 
 def goto_login(self):
+    global action
+    action = ElementActions(driver=self.driver)
     try:
-        my = self.driver.find_element_by_name('我的')
+
+        els = action.get_classes('android.widget.Button')
+        for el in els:
+            sleep(2)
+            if el.text == u'允许':
+                self.driver.find_element_by_android_uiautomator('new UiSelector().text("允许")').click()
+                print('点击允许')
+            elif el.text == u'始终允许':
+                self.driver.find_element_by_android_uiautomator('new UiSelector().text("始终允许")').click()
+                print('点击始终允许')
+            elif el.text == u'确定':
+                self.driver.find_element_by_android_uiautomator('new UiSelector().text("确定")').click()
+                print('点击确定')
+    except:
+        print('pass')
+
+        pass
+    sleep(2)
+    try:
+        my = action.get_name('我的')
         self.assertIsNotNone(my)
         my.click()
         sleep(2)
-        lgbs = self.driver.find_element_by_name('登录')
+        lgbs = action.get_name('登录')
         self.assertIsNotNone(lgbs)
         lgbs.click()
         sleep(2)
     except:
         print("进入登录页面失败")
-
 
 def login(self, username, verificationcode):
     sleep(2)
@@ -96,14 +119,12 @@ def login(self, username, verificationcode):
         print(u'--登录失败--')
         sleep(2)
 
-
 def wx_login(self):
     wxBnt = self.driver.find_element_by_id('tv.yunxi.app:id/ll_wechat_login')
     self.assertIsNotNone(wxBnt)
     wxBnt.click()
-    self.driver.find_element_by_name(u'确认登录').click()
+    action.get_name(u'确认登录').click()
     sleep(4)
-
 
 def user_agree(self):
     sleep(4)

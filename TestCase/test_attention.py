@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
+
+from Common.action import ElementActions
 from Common.yunxiCommon import *
 from Common.Element import *
 from appium import webdriver as appdriver
@@ -17,7 +19,8 @@ class Attention(unittest.TestCase):
 
         self.driver.implicitly_wait(5)
         writeLog(self)
-
+        global action
+        action = ElementActions(driver=self.driver)
         print("----------------setup-------------")
 
     def tearDown(self):
@@ -35,17 +38,18 @@ class Attention(unittest.TestCase):
         at = get_name(self, '关注')
         self.assertIsNotNone(at)
         at.click()
-        tabs = get_id(self, 'tv.yunxi.app:id/tv_tab_title')
+        tabs = action.get_id('tv.yunxi.app:id/tv_tab_title')
         self.assertIsNotNone(tabs)
-        tabs[0].click()
+        tabs.click()
+
         try:
-            get_id(self, 'tv.yunxi.app:id/tv_to_obsever')
+            action.get_id('tv.yunxi.app:id/tv_to_obsever')
             print(u'您关注的主播不在直播中')
-            get_id(self, 'tv.yunxi.app:id/tv_to_obsever').click()
-            get_id(self, 'tv.yunxi.app:id/img_activity_bg').click()
+            action.get_id('tv.yunxi.app:id/tv_to_obsever').click()
+            action.get_id('tv.yunxi.app:id/img_activity_bg').click()
             sleep(2)
         except:
-            print(u'关注列表不为空，请随便点击一个播放')
+            print(u'关注列表为空')
         self.driver.keyevent(4)
 
 

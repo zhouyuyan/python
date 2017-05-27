@@ -3,9 +3,12 @@
 # Created by zhouyuyan on 2017/5/19 14:34
 import unittest
 from random import choice
-from Common.yunxiCommon import *
-from Common.Element import *
+
 from appium import webdriver as appdriver
+
+from Common.Element import *
+from Common.action import ElementActions
+from Common.yunxiCommon import *
 from utils import L
 
 L.i('-------开始运行test_home-------')
@@ -18,6 +21,8 @@ class Home(unittest.TestCase):
 
         self.driver.implicitly_wait(5)
         writeLog(self)
+        global action
+        action = ElementActions(driver=self.driver)
 
         print("----------------setup-------------")
 
@@ -58,11 +63,31 @@ class Home(unittest.TestCase):
 
     def test_videoSetting(self):
         """测试登录-发现页面-播放界面设置"""
+        # action = ElementActions(driver=self.driver)
 
+        b = 0
         self.goto_faxian()
         self.search()
-        # self.faxian()
-        self.video_setting()
+        a = self.open_fullScreen()
+        if a == 1:
+            b = self.open_danm()
+            L.i('open_danm success')
+        else:
+            L.w('open_danm failed')
+            pass
+
+        if b == 1:
+            self.close_danm()
+            L.i("close_danm success")
+        else:
+            L.w("close_danm failed")
+            pass
+        if a == 1:
+            self.close_fullScreen()
+            L.i('open_danm success')
+        else:
+            L.w('open_danm failed')
+            pass
 
     def test_f(self):
         """测试登录-发现-评论"""
@@ -71,8 +96,11 @@ class Home(unittest.TestCase):
         self.faxian()
         self.pinglun()
 
-    def test_uptolist(self):
-        self.list_to_up()
+    def test_lefttolist(self):
+        self.list_to_left()
+
+    def test_downtolist(self):
+        self.list_to_more()
 
     # def test_g(self):
     #     """测试发现-播放页面设置"""
@@ -81,19 +109,19 @@ class Home(unittest.TestCase):
     #     print("---------------------this is test_g-----------------------")
 
     def search(self):
-        ser = get_id(self, 'tv.yunxi.app:id/img_right')
+        ser = action.get_id('tv.yunxi.app:id/img_right')
         self.assertIsNotNone(ser)
         ser.click()
         print(u'--点击搜索按钮--')
         sleep(2)
-        get_id(self, 'tv.yunxi.app:id/ed_search').send_keys(u'啊啊啊啊啊')
+        action.get_id('tv.yunxi.app:id/ed_search').send_keys(u'啊啊啊啊啊')
         print(u'--输入搜索内容--')
         self.driver.keyevent(66)
         sleep(5)
         try:
-            get_id(self, 'tv.yunxi.app:id/tv_search_title')
+            action.get_id('tv.yunxi.app:id/tv_search_title')
             print(u'搜索成功')
-            get_id(self, 'tv.yunxi.app:id/img_search').click()
+            action.get_id('tv.yunxi.app:id/img_search').click()
 
 
         except:
@@ -103,16 +131,16 @@ class Home(unittest.TestCase):
 
     def faxian(self):
         # 发现页面
-        self.driver.find_element_by_name('发现').click()
+        action.get_name('发现').click()
         print(u'--进入发现页面--')
         sleep(2)
 
-        get_id(self, 'tv.yunxi.app:id/img_activity_bg').click()  # 点击视频直播
+        action.get_id('tv.yunxi.app:id/img_activity_bg').click()  # 点击视频直播
         print(u'--点击视频直播--')
         sleep(6)
 
     def goto_faxian(self):
-        fx = self.driver.find_element_by_name('发现')
+        fx = action.get_name('发现')
         fx.click()
         print(u'--进入发现页面--')
         sleep(2)
@@ -121,7 +149,7 @@ class Home(unittest.TestCase):
         # 详情页评论
         mylist = [u'很好', u'不错', u'赞', u'好看', u'受用']
         message = choice(mylist)
-        get_id(self, 'tv.yunxi.app:id/tv_input_click').click()
+        action.get_id('tv.yunxi.app:id/tv_input_click').click()
         # sleep(2)
         # 多条评论-----
         # i = 1
@@ -137,7 +165,7 @@ class Home(unittest.TestCase):
         #         print(u'消息发送成功')
         #         break
         #         ------一条评论------
-        get_id(self, 'tv.yunxi.app:id/tv_input_click').send_keys(message)
+        action.get_id('tv.yunxi.app:id/tv_input_click').send_keys(message)
         self.driver.keyevent(66)  # 发送
         newmessage = u'13071825896' + ':' + ' ' + ' ' + message
         print(newmessage)
@@ -150,27 +178,27 @@ class Home(unittest.TestCase):
 
     def guanzhu(self):
         try:
-            get_id(self, 'tv.yunxi.app:id/img_up_head').click()
+            action.get_id('tv.yunxi.app:id/img_up_head').click()
             sleep(2)
             print(u'--点击主播头像，进入企业主页--')
 
-            get_id(self, 'tv.yunxi.app:id/tv_to_observe').click()
+            action.get_id('tv.yunxi.app:id/tv_to_observe').click()
             print(u'--点击关注--')
 
             sleep(4)
-            get_id(self, 'tv.yunxi.app:id/tv_to_observe').click()
+            action.get_id('tv.yunxi.app:id/tv_to_observe').click()
             print(u'--再次点击关注--')
             sleep(2)
 
             self.driver.keyevent(4)
-            get_id(self, 'tv.yunxi.app:id/img_activity_bg').click()
+            action.get_id('tv.yunxi.app:id/img_activity_bg').click()
             sleep(2)
             print(u'--点击企业列表--')
 
-            get_id(self, 'tv.yunxi.app:id/tv_to_observe').click()
+            action.get_id('tv.yunxi.app:id/tv_to_observe').click()
             print(u'--直播页面点击关注--')
             sleep(2)
-            get_id(self, 'tv.yunxi.app:id/tv_to_observe').click()
+            action.get_id('tv.yunxi.app:id/tv_to_observe').click()
             print(u'--直播页面再次点击关注--')
             sleep(2)
             self.driver.keyevent(4)
@@ -179,77 +207,128 @@ class Home(unittest.TestCase):
         except:
             print(u'--发现--')
 
-    def list_to_up(self):
+    def list_to_left(self):
         swip_left(self, 8)
         print('左滑动')
         swipe_to_up(self)
         print('加载更多数据')
 
-    def video_setting(self):
+    def list_to_more(self):
+        # swip_down(self, count=100, method=lambda action: not action.is_key_text_displayed("没有更多了"))
+        swip_down(self, count=1)
+        print('swip_down')
+        swip_up(self, count=100, method=is_text_displayed(self, "没有更多了"))
+        print('swip_up')
+
+    def open_fullScreen(self):
+        # 开启全屏
+        sleep(5)
+        fusc = action.get_id('tv.yunxi.app:id/img_full_Screen')
+        # fusc = action.get_id('tv.yunxi.app:id/img_full_Screen')
+        giftLl = action.get_id('tv.yunxi.app:id/giftLl')
+        # result01 = self.assertIsNotNone(fusc)
+        result01 = lambda action: action.is_element_displayed(fusc)
         try:
-            self.fusc = get_id(self, 'tv.yunxi.app:id/img_full_Screen')
-            giftLl = get_id(self, 'tv.yunxi.app:id/giftLl')
-            self.result01 = self.assertIsNotNone(self.fusc)
-            print(self.result01)
-            if (self.result01 == None):
+            if result01:
+                fusc.click()
+                L.i('点击op全屏按钮02')
+                print(result01)
+                a = 1
+
+            else:
                 giftLl.click()
-                self.fusc.click()
-                print(u"点击屏幕")
-
-            else:
-                print(u"pass")
-                self.fusc.click()
-            print("横屏播放成功")
-        except:
-            print("横屏播放")
-        sleep(5)
-
-        bottom_control = get_id(self, 'tv.yunxi.app:id/rl_bottom_control')
-        danm = get_id(self, 'tv.yunxi.app:id/img_danmaku_control')
-        result02 = self.assertIsNotNone(danm)
-        try:
-            if (result02 == None):
-                bottom_control.click()
-                danm.click()
-                print(u"点击屏幕")
-
-            else:
-                print(u"准备开启弹幕")
-                danm.click()
-            print("弹幕开启成功")
+                L.i('点击屏幕')
+                if result01:
+                    fusc.click()
+                    L.i('点击op全屏按钮01')
+                a = 1
 
         except:
-            print('failed_opentanmu')
-        sleep(5)
+            a = 2
+
+            L.w("横屏播放failed")
+        print(a)
+        return a
+
+    def open_danm(self):
+        # 开启弹幕
 
         try:
-            if (result02 == None):
+            bottom_control = action.get_id('tv.yunxi.app:id/rl_bottom_control')
+            danm = action.get_id('tv.yunxi.app:id/img_danmaku_control')
+            result02 = lambda action: action.is_element_displayed(danm)
+            if result02:
+                print(result02)
                 bottom_control.click()
-                danm.click()
+                L.i('点击屏幕')
+                if result02:
+                    danm.click()
+                    print('点击opdanm按钮01')
 
-                print(u"点击屏幕")
             else:
-                print(u"准备关闭tanmu")
                 danm.click()
-            print("弹幕关闭成功")
-        except Exception as e:
-            print('failed_closetanmu')
-        sleep(5)
+                print('点击opdanm按钮02')
+            od = 1
 
+        except:
+            L.w("open_danm failed")
+            od = 2
+        print(od)
+
+        return od
+
+    def close_fullScreen(self):
         # 关闭全屏
-        try:
-            if (self.result01 == None):
-                bottom_control.click()
-                self.fusc.click()
-                print(u"关闭全屏")
-            else:
-                self.fusc.click()
-                print(u"关闭全屏")
-            print("全屏关闭成功")
-        except:
-            print("全屏关闭失败")
 
-        self.driver.keyevent(4)  # 测试
+        a = 0
+        try:
+            fusc = action.get_id('tv.yunxi.app:id/img_full_Screen')
+            giftLl = action.get_id('tv.yunxi.app:id/giftLl')
+            result01 = lambda action: action.is_element_displayed(fusc)
+            if not result01:
+                sleep(5)
+                giftLl.click()
+                if result01:
+                    fusc.click()
+                    L.i('点击cl全屏按钮01')
+                a = 1
+            else:
+                if result01:
+                    fusc.click()
+                fusc.click()
+                L.i('点击cl全屏按钮02')
+                a = 1
+
+
+        except:
+
+            L.w("竖屏failed")
+            a = 2
+        print(a)
+        return a
+
+    def close_danm(self):
+        # 关闭弹幕
+
+        try:
+            bottom_control = action.get_id('tv.yunxi.app:id/rl_bottom_control')
+            danm = action.get_id('tv.yunxi.app:id/img_danmaku_control')
+            result02 = lambda action: action.is_element_displayed(danm)
+            if not result02:
+                print(result02)
+                bottom_control.click()
+                L.i('点击屏幕')
+                if result02:
+                    danm.click()
+                    L.i('点击danm按钮01')
+            else:
+                if result02:
+                    danm.click()
+                    L.i('点击danm按钮02')
+
+        except:
+            L.w("close_danm  failed")
+        sleep(5)
 
     def wx_share(self):
         # 微信分享
@@ -265,9 +344,9 @@ class Home(unittest.TestCase):
             sleep(10)
             get_xpath(self, "//android.widget.LinearLayout[@index='1']").click()
             sleep(2)
-            self.driver.find_element_by_name(u'分享').click()
+            action.get_name(u'分享').click()
             sleep(2)
-            self.driver.find_element_by_name(u'返回云犀直播').click()
+            action.get_name(u'返回云犀直播').click()
             sleep(3)
         except:
             print(u"分享到好友失败")
@@ -275,8 +354,8 @@ class Home(unittest.TestCase):
     def wx_cricle(self):
         # 朋友圈分享
         try:
-            self.play = get_id(self, 'tv.yunxi.app:id/ll_player_control')
-            self.share = get_id(self, 'tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
+            self.play = action.get_id('tv.yunxi.app:id/ll_player_control')
+            self.share = action.get_id('tv.yunxi.app:id/img_activity_share')  # 进入到详情界面
             if self.assertIsNotNone(self.share):
                 print(self.assertIsNotNone(self.share))
                 self.play.click()
