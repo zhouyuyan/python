@@ -31,25 +31,29 @@ class Attention(unittest.TestCase):
     def test_d(self):
         """测试登录-关注页面"""
         goto_login(self)
-        login(self, '13071825896', '3279')
-        self.attention()
+        a = login(self, '13071825896', '3279')
+        if a:
+            self.attention()
+        else:
+            print("登录失败--->关注失败")
 
     def attention(self):
         at = get_name(self, '关注')
         self.assertIsNotNone(at)
         at.click()
-        tabs = action.get_id('tv.yunxi.app:id/tv_tab_title')
+        tabs = get_id(self, 'tv.yunxi.app:id/tv_tab_title')
         self.assertIsNotNone(tabs)
         tabs.click()
 
         try:
-            action.get_id('tv.yunxi.app:id/tv_to_obsever')
-            print(u'您关注的主播不在直播中')
-            action.get_id('tv.yunxi.app:id/tv_to_obsever').click()
-            action.get_id('tv.yunxi.app:id/img_activity_bg').click()
+            get_id(self, 'tv.yunxi.app:id/tv_to_obsever')
+
+            get_id(self, 'tv.yunxi.app:id/tv_to_obsever').click()
+            get_id(self, 'tv.yunxi.app:id/img_activity_bg').click()
             sleep(2)
+            print(u'随便点一个播放')
         except:
-            print(u'关注列表为空')
+            print(u'关注列表为空,您关注的主播不在直播中')
         self.driver.keyevent(4)
 
 

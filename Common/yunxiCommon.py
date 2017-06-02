@@ -6,6 +6,7 @@ import traceback
 import logging
 import datetime
 from time import sleep
+from Common.Element import *
 
 import pexpect, sys, os.path, subprocess
 from appium import webdriver
@@ -59,58 +60,44 @@ def writeLog(self):
 def goto_login(self):
     global action
     action = ElementActions(driver=self.driver)
-    try:
-
-        els = action.get_classes('android.widget.Button')
-        for el in els:
-            sleep(2)
-            if el.text == u'允许':
-                self.driver.find_element_by_android_uiautomator('new UiSelector().text("允许")').click()
-                print('点击允许')
-            elif el.text == u'始终允许':
-                self.driver.find_element_by_android_uiautomator('new UiSelector().text("始终允许")').click()
-                print('点击始终允许')
-            elif el.text == u'确定':
-                self.driver.find_element_by_android_uiautomator('new UiSelector().text("确定")').click()
-                print('点击确定')
-    except:
-        print('pass')
-
-        pass
+    sleep(2)
+    my = get_name(self, '我的')
+    check_my = lambda action: action.is_element_displayed(my)
+    if check_my:
+        my.click()
     sleep(2)
     try:
-        my = action.get_name('我的')
-        self.assertIsNotNone(my)
-        my.click()
-        sleep(2)
-        lgbs = action.get_name('登录')
-        self.assertIsNotNone(lgbs)
-        lgbs.click()
+
+        lgbs = get_name(self, '登录')
+        check_lgbs = lambda action: action.is_element_displayed(lgbs)
+        if check_lgbs:
+            lgbs.click()
         sleep(2)
     except:
         print("进入登录页面失败")
 
+
 def login(self, username, verificationcode):
     sleep(2)
-    usernameEt = self.driver.find_element_by_id('tv.yunxi.app:id/ed_phone_num')
-    self.assertIsNotNone(usernameEt)
-    usernameEt.send_keys(username)
-    print(u'--已经输入手机号--')
-    sleep(2)
-    # self.driver.find_element_by_id('tv.yunxi.app:id/tv_get_verification_first').click()
-    # print(u'--获取验证码--')
-    # sleep(2)
-    et_ver = self.driver.find_element_by_id('tv.yunxi.app:id/ed_verification')
-    self.assertIsNotNone(et_ver)
-    et_ver.send_keys(verificationcode)
-    print(u'--已输入验证码--')
-    sleep(2)
-
     try:
-        self.driver.find_element_by_id('tv.yunxi.app:id/tv_phone_login').click()
+        usernameEt = get_id(self, 'tv.yunxi.app:id/ed_phone_num')
+        self.assertIsNotNone(usernameEt)
+        usernameEt.send_keys(username)
+        print(u'--已经输入手机号--')
+        sleep(2)
+        # get_id(self,'tv.yunxi.app:id/tv_get_verification_first').click()
+        # print(u'--获取验证码--')
+        # sleep(2)
+        et_ver = get_id(self, 'tv.yunxi.app:id/ed_verification')
+        self.assertIsNotNone(et_ver)
+        et_ver.send_keys(verificationcode)
+        print(u'--已输入验证码--')
+        sleep(2)
+
+        get_id(self, 'tv.yunxi.app:id/tv_phone_login').click()
         print(u'--点击登录--')
         sleep(2)
-        phone = self.driver.find_element_by_id('tv.yunxi.app:id/tv_phone')
+        phone = get_id(self, 'tv.yunxi.app:id/tv_phone')
         Login_successful = self.assertEqual(phone.text, username)  # 判断是否登录成功
         if Login_successful == None:
             return True
@@ -119,21 +106,23 @@ def login(self, username, verificationcode):
         print(u'--登录失败--')
         sleep(2)
 
+
 def wx_login(self):
-    wxBnt = self.driver.find_element_by_id('tv.yunxi.app:id/ll_wechat_login')
+    wxBnt = get_id(self, 'tv.yunxi.app:id/ll_wechat_login')
     self.assertIsNotNone(wxBnt)
     wxBnt.click()
-    action.get_name(u'确认登录').click()
+    get_name(self, '确认登录').click()
     sleep(4)
+
 
 def user_agree(self):
     sleep(4)
 
     try:
-        agree = self.driver.find_element_by_id('tv.yunxi.app:id/tv_agree')
+        agree = get_id(self, 'tv.yunxi.app:id/tv_agree')
         self.assertIsNotNone(agree)
         agree.click()
-        title = self.driver.find_element_by_id('tv.yunxi.app:id/tv_title')
+        title = get_id(self, 'tv.yunxi.app:id/tv_title')
         self.assertIsNotNone(title)
         agree = self.assertEqual(title.text, u"用户协议")
         if agree == None:

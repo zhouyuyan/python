@@ -38,17 +38,17 @@ class My(unittest.TestCase):
     def setting(self):
 
         try:
-            action.get_id('tv.yunxi.app:id/rl_setting').click()
+            get_id(self, 'tv.yunxi.app:id/rl_setting').click()
             L.i('--点击设置按钮--')
             sleep(2)
-            action.get_id('tv.yunxi.app:id/rl_wipe_cache').click()
+            get_id(self, 'tv.yunxi.app:id/rl_wipe_cache').click()
             L.i('--点击清空缓存按钮--')
             sleep(2)
-            action.get_id('tv.yunxi.app:id/dialog_ok').click()
+            get_id(self, 'tv.yunxi.app:id/dialog_ok').click()
             sleep(2)
             L.i('--点击清空缓存dialog--')
             sleep(2)
-            action.get_id('tv.yunxi.app:id/ll_back').click()
+            get_id(self, 'tv.yunxi.app:id/ll_back').click()
             sleep(2)
             self.driver.keyevent(4)  # 硬件返回
         except:

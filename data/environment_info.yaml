@@ -1,11 +1,11 @@
 !EnvironmentInfo
-apk: D:\workspace\yunxiTestCase/apk/app.apk
+apk: D:\workspace\yunxiTestcase/apk/app.apk
 app_activity: tv.yunxi.app.module.common.MainActivity
 app_package: tv.yunxi.app
 appium: 1.4.16
 devices:
 - !DeviceInfo
-  device_name: GSL0216A10001570
+  device_name: 127.0.0.1:62001
   platform_name: Android
-  platform_version: '7.0'
-html_report: D:\workspace\yunxiTestCase/report/html
+  platform_version: 4.4.2
+html_report: D:\workspace\yunxiTestcase/report/html
