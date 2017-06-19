@@ -18,6 +18,7 @@ class Login(unittest.TestCase):
         self.driver.implicitly_wait(5)
         global action
         action = ElementActions(driver=self.driver)
+        self.driver.update_settings({"ignoreUnimportantViews": True})
         # 判断是否出现权限弹窗
         sleep(3)
         print("----------------setup-------------")
