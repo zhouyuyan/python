@@ -1,5 +1,5 @@
 !EnvironmentInfo
-apk: D:\workspace\yunxiTestcase/apk/app.apk
+apk: D:\workspace\xingxiTestcase/apk/app.apk
 app_activity: tv.yunxi.app.module.common.MainActivity
 app_package: tv.yunxi.app
 appium: 1.4.16
@@ -8,4 +8,4 @@ devices:
   device_name: 127.0.0.1:62001
   platform_name: Android
   platform_version: 4.4.2
-html_report: D:\workspace\yunxiTestcase/report/html
+html_report: D:\workspace\xingxiTestcase/report/html

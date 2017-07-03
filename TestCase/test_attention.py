@@ -3,6 +3,7 @@
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
 
+from Common import InitDriver
 from Common.action import ElementActions
 from Common.yunxiCommon import *
 from Common.Element import *
@@ -14,11 +15,8 @@ L.i('-------开始运行test_attention-------')
 
 class Attention(unittest.TestCase):
     def setUp(self):
-
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
-
+        self.driver = InitDriver.start_driver()
         self.driver.implicitly_wait(5)
-        writeLog(self)
         global action
         action = ElementActions(driver=self.driver)
         print("----------------setup-------------")

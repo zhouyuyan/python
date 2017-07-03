@@ -99,6 +99,15 @@ class ElementActions:
             return None
         return el[0].get_attribute("text")
 
+    def prints(self, loc):
+        '''
+        打印文本
+        :param loc: 元素定位
+        :return: 无
+        '''
+        text = self.find_element(loc).get_attribute('text')
+        print(u'获取元素{}的显示信息：{}'.format(loc, text))
+
     def text(self, locator, value, clear_first=False, click_first=True):
         """输入文本
 

@@ -1,67 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Created by zhouyuyan on 2017/5/3 14:14
-import os
-import traceback
-import logging
-import datetime
 from time import sleep
 from Common.Element import *
-
-import pexpect, sys, os.path, subprocess
-from appium import webdriver
-
 from Common.action import ElementActions
 from utils.environment import Environment
 
 env = Environment().get_environment_info()
 
 
-def desired_caps(self):
-    caps = {
-
-        'platformName': env.devices[0].platform_name,
-
-        'platformVersion': env.devices[0].platform_version,
-
-        'deviceName': env.devices[0].device_name,
-
-        'appPackage': env.app_package,
-
-        'appActivity': env.app_activity,
-
-        'app': env.apk,
-        'automationName': 'Appium',
-        'unicodeKeyboard': True,
-        'resetKeyboard': True,
-        'autoLaunch': True,
-        'autoAcceptAlerts': True
-    }
-    return caps
-
-
-def writeLog(self):
-    # 组合日志文件名（当前文件名+当前时间）.比如：case_login_success_20150817192533
-    basename = os.path.splitext(os.path.basename(__file__))[0]
-    logFile = 'D:\\Test_report\\' + basename + "-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".log"
-    logging.basicConfig(filename=logFile)
-    s = traceback.format_exc()
-    logging.error(s)
-    self.driver.get_screenshot_as_file("./" + logFile + "-screenshot_error.png")
-
-
-"""
-封装Appium中关于元素对象的方法
-"""
-
-""""登录页面测试步骤"""
-
+# """"登录页面测试步骤"""
+#
 
 def goto_login(self):
     global action
     action = ElementActions(driver=self.driver)
-    sleep(2)
-    my = get_name(self, '我的')
+    sleep(4)
+    my = get_name(self, "我的")
     check_my = lambda action: action.is_element_displayed(my)
     if check_my:
         my.click()
@@ -70,6 +25,7 @@ def goto_login(self):
 
         lgbs = get_name(self, '登录')
         check_lgbs = lambda action: action.is_element_displayed(lgbs)
+
         if check_lgbs:
             lgbs.click()
         sleep(2)
@@ -79,9 +35,13 @@ def goto_login(self):
 
 def login(self, username, verificationcode):
     sleep(2)
+    # phoneLogin = get_id(self, 'tv.yunxi.app:id/rl_phone_login')
+    # phoneLogin.click()
+
     try:
         usernameEt = get_id(self, 'tv.yunxi.app:id/ed_phone_num')
         self.assertIsNotNone(usernameEt)
+        usernameEt.clear()
         usernameEt.send_keys(username)
         print(u'--已经输入手机号--')
         sleep(2)
@@ -90,6 +50,7 @@ def login(self, username, verificationcode):
         # sleep(2)
         et_ver = get_id(self, 'tv.yunxi.app:id/ed_verification')
         self.assertIsNotNone(et_ver)
+        et_ver.clear()
         et_ver.send_keys(verificationcode)
         print(u'--已输入验证码--')
         sleep(2)
@@ -129,5 +90,5 @@ def user_agree(self):
             return True
 
     except:
-        print('failed')
+        print('---查看用户协议失败-----')
     self.driver.keyevent(4)

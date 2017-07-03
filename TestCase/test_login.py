@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 # Created by zhouyuyan on 2017/5/19 14:35
 import unittest
-from Common.yunxiCommon import *
-from appium import webdriver as appdriver
-from Common.Element import *
 
+from Common import InitDriver
+from Common.yunxiCommon import *
 from utils import L
 
 L.i('-------开始运行test_login-------')
@@ -13,8 +12,7 @@ L.i('-------开始运行test_login-------')
 
 class Login(unittest.TestCase):
     def setUp(self):
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
-
+        self.driver = InitDriver.start_driver()
         self.driver.implicitly_wait(5)
         global action
         action = ElementActions(driver=self.driver)

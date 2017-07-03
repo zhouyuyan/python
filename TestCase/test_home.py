@@ -6,6 +6,7 @@ from random import choice
 
 from appium import webdriver as appdriver
 
+from Common import InitDriver
 from Common.Element import *
 from Common.action import ElementActions
 from Common.yunxiCommon import *
@@ -17,10 +18,9 @@ L.i('-------开始运行test_home-------')
 class Home(unittest.TestCase):
     def setUp(self):
 
-        self.driver = appdriver.Remote('http://localhost:4723/wd/hub', desired_caps(self))
+        self.driver = InitDriver.start_driver()
 
         self.driver.implicitly_wait(5)
-        writeLog(self)
         global action
         action = ElementActions(driver=self.driver)
 
@@ -63,8 +63,6 @@ class Home(unittest.TestCase):
 
     def test_videoSetting(self):
         """测试登录-发现页面-播放界面设置"""
-        # action = ElementActions(driver=self.driver)
-
         b = 0
         self.goto_faxian()
         self.search()
